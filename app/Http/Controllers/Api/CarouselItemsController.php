@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\CarouselItems;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\CarouselItemsRequest;
 
 class CarouselItemsController extends Controller
 {
@@ -39,7 +40,7 @@ class CarouselItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CarouselItemsRequest $request, string $id)
     {
         $carouselItem = CarouselItems::findorfail($id);
 
