@@ -42,6 +42,8 @@ class CarouselItemsController extends Controller
      */
     public function update(CarouselItemsRequest $request, string $id)
     {
+        $validated = $request->validated();
+
         $carouselItem = CarouselItems::findorfail($id);
 
         $carouselItem->update($validated);

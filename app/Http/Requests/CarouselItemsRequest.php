@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CarouselItemsRequest extends FormRequest
