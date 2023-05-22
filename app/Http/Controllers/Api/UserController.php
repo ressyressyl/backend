@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -59,9 +59,7 @@ class UserController extends Controller
         return $user;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
 
     public function email(UserRequest $request, string $id)
     {
@@ -90,11 +88,35 @@ class UserController extends Controller
     }
 
 
+    /**
+     * Remove the specified resource from storage.
+     */
+
     public function destroy(string $id)
     {
         $user = User::findorfail($id);
 
         $user->delete();
+
+        return $user;
+    }
+
+
+    /**
+     * Update the image of the specified resource from storage.
+     */
+
+    public function image(UserRequest $request, string $id)
+    {
+        $user = User::findOrfail($id);
+
+        if ( !is_null($user->image) ){
+            Storage::disk('public')->delete($user->image);
+        }
+
+        $user->image = $request->file('image')->storePublicly('image', 'public');
+
+        $user->save();
 
         return $user;
     }
