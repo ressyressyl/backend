@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CarouselItemsController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\AiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 //Public APIs
 Route::post('/login', [AuthController::class, 'login'])->name('user.login');
 Route::post('/user', [UserController::class, 'store'])->name('user.store');
+
+// OCR API
+Route::post('/ocr', [AiController::class, 'ocr'])->name('ocr.image');
 
 //Private APIs
 Route::middleware(['auth:sanctum'])->group(function () {
