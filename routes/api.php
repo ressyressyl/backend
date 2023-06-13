@@ -4,8 +4,8 @@ use App\Http\Controllers\Api\CarouselItemsController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\PromptController;
 use App\Http\Controllers\Api\AiController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +25,12 @@ Route::post('/user', [UserController::class, 'store'])->name('user.store');
 
 // OCR API
 Route::post('/ocr', [AiController::class, 'ocr'])->name('ocr.image');
+
+//OpenAI
+Route::controller(PromptController::class)->group(function () {
+    Route::get('/prompts',                  'index');
+    Route::post('/prompts',                 'store');
+ });
 
 //Private APIs
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -52,6 +58,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/profile/show', [ProfileController::class, 'show']);
     Route::put('/profile/image', [ProfileController::class, 'image'])->name('profile.image');
+
+    //OpenAI
+    Route::controller(PromptController::class)->group(function () {
+       Route::delete('/prompts/{id}',        'destroy');
+       Route::delete('/prompts',             'clear');
+    });
 
 });
 
